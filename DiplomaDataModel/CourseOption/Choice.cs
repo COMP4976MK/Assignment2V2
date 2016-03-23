@@ -38,7 +38,6 @@ namespace DiplomaDataModel.CourseOption
         public string StudentLastName { get; set; }
 
         [UIHint("FirstChoiceDropDown")]
-        [Required(ErrorMessage = "First Choice is required.")]
         [Display(Name = "First Choice: ")]
         [ForeignKey("FirstOption")]
         public int? FirstChoiceOptionId { get; set; }
@@ -46,7 +45,6 @@ namespace DiplomaDataModel.CourseOption
         public virtual Option FirstOption { get; set; }
 
         [UIHint("SecondChoiceDropDown")]
-        [Required(ErrorMessage = "Second Choice is required.")]
         [Display(Name = "Second Choice: ")]
         [ForeignKey("SecondOption")]
         public int? SecondChoiceOptionId { get; set; }
@@ -54,7 +52,6 @@ namespace DiplomaDataModel.CourseOption
         public virtual Option SecondOption { get; set; }
 
         [UIHint("ThirdChoiceDropDown")]
-        [Required(ErrorMessage = "Third Choice is required.")]
         [Display(Name = "Third Choice: ")]
         [ForeignKey("ThirdOption")]
         public int? ThirdChoiceOptionId { get; set; }
@@ -62,7 +59,6 @@ namespace DiplomaDataModel.CourseOption
         public virtual Option ThirdOption { get; set; }
 
         [UIHint("FourthChoiceDropDown")]
-        [Required(ErrorMessage = "Fourth Choice is required.")]
         [Display(Name = "Fourth Choice: ")]
         [ForeignKey("FourthOption")]
         public int? FourthChoiceOptionId { get; set; }
