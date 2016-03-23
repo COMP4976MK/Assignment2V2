@@ -1,0 +1,5 @@
+﻿enable-migrations -ContextTypeName HealthContext -MigrationsDirectory Migrations\HealthMigrations
+
+add-migration -ConfigurationTypeName HealthApi.Migrations.HealthMigrations.Configuration "InitialCreate"
+
+update-database -ConfigurationTypeName PatientData.Migrations.HealthMigrations.Configuration
