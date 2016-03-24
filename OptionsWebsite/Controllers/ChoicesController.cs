@@ -22,6 +22,21 @@ namespace DiplomaOptions.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            List<String> reports = new List<string>();
+            reports.Add("Detailed Reports");
+            reports.Add("Chart");
+
+            var yearterms = db.YearTerms.GroupBy(test => test.YearTermId)
+                   .Select(grp => grp.FirstOrDefault())
+                   .ToList()
+                   .Select(s => new
+                   {
+                       YearTermID = s.YearTermId,
+                       YT = string.Format("{0}/{1}", s.Year, s.Term)
+                   });
+
+            ViewBag.Terms = new SelectList(yearterms, "YearTermId", "YT");
+            ViewBag.Reports = new SelectList(reports);
             var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
             return View(choices.ToList());
         }
