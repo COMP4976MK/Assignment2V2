@@ -78,7 +78,7 @@ namespace WebOptionsAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            choice.SelectionDate = System.DateTime.Now;
             db.Choices.Add(choice);
             db.SaveChanges();
 

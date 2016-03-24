@@ -1,0 +1,36 @@
+﻿<div class="main_content">
+    <h3>Find</h3>
+    <p>Enter Person Id: <input type="text" data-ng-model="PersonId" style="width:50PX" /></p>
+    <p><button ng-click="findCartoonCharacter(PersonId)">Get Person</button></p>
+    <hr />
+    <table class='ui-state-highlight' data-ng-show="person">
+        <tr>
+            <td>Id: </td>
+            <td>{{ person.PersonId }}</td>
+        </tr>
+        <tr>
+            <td>First Name: </td>
+            <td>{{ person.FirstName }}</td>
+        </tr>
+        <tr>
+            <td>LastName: </td>
+            <td>{{ person.LastName }}</td>
+        </tr>
+        <tr>
+            <td>Occupation: </td>
+            <td>{{ person.Occupation }}</td>
+        </tr>
+        <tr>
+            <td>Gender: </td>
+            <td>{{ person.Gender }}</td>
+        </tr>
+        <tr>
+            <td>Picture: </td>
+            <td><img ng-src='{{ person.Picture }}' style='height: 90px' alt='{{ person.FirstName }} {{ person.LastName }}' /></td>
+        </tr>
+        <tr>
+            <td>Created: </td>
+            <td>{{ person.Created | date:'yyyy-MM-dd @ HH:mm:ss'}}</td>
+        </tr>
+    </table>
+</div>
