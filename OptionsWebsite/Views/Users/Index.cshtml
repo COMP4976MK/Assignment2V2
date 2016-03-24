@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users Listing </h2>
+
+<hr />
+<div>
+    @foreach (var user in Model)
+    {
+        <p>
+            <strong>@user.Email | @user.UserName | </strong> 
+            @if (user.LockoutEnabled)
+            {
+                @Html.ActionLink("Activate", "Activate", "Users", new { id = user.Id }, null)
+            }
+            else
+            {
+                @Html.ActionLink("Deactivate", "Deactivate", "Users", new { id = user.Id }, null)
+            }
+        </p>
+    }
+</div>
