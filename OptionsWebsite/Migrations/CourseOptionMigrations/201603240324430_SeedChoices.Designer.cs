@@ -13,7 +13,7 @@ namespace DiplomaOptions.Migrations.CourseOptionMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201603240215333_SeedChoices"; }
+            get { return "201603240324430_SeedChoices"; }
         }
         
         string IMigrationMetadata.Source
