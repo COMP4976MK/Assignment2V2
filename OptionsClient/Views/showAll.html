@@ -1,0 +1,27 @@
+﻿<div class="main_content">
+    <h3>Show All</h3>
+    <button ng-click="search()">Get All Flintstones</button>
+    <hr />
+    <table class='ui-state-highlight' data-ng-show="characters">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Occupation</th>
+                <th>Created</th>
+                <th>Picture</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="c in characters">
+                <td>{{ c.PersonId }}</td>
+                <td>{{ c.FirstName }}</td>
+                <td>{{ c.LastName }}</td>
+                <td>{{ c.Occupation }}</td>
+                <td>{{ c.Created | date:'yyyy-MM-dd'}}</td>
+                <td><img ng-src='{{ c.Picture }}' style='height: 90px' alt='{{ c.FirstName }} {{ c.LastName }}' /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

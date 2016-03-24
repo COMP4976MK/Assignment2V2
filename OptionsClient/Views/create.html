@@ -1,0 +1,43 @@
+﻿<div class="main_content">
+    <h3>Add</h3>
+    <table>
+        <tr><td>First Name:</td><td><input type="text" ng-model="cartoonCharacter.FirstName" /></td></tr>
+        <tr><td>Last Name:</td><td><input type="text" ng-model="cartoonCharacter.LastName" /></td></tr>
+        <tr><td>Occupation:</td><td><input type="text" ng-model="cartoonCharacter.Occupation" /></td></tr>
+        <tr><td>Gender:</td><td><input type="text" ng-model="cartoonCharacter.Gender" maxlength="1" /></td></tr>
+        <tr><td>Picture:</td><td><input type="text" ng-model="cartoonCharacter.Picture" size="60" /></td></tr>
+        <tr><td colspan="2"><button ng-click="addCartoonCharacter()">Add Cartoon Character</button></td></tr>
+    </table>
+    <div data-ng-show="newPerson">
+        <table class='ui-state-highlight'>
+            <tr>
+                <td>Id: </td>
+                <td>{{ newPerson.PersonId }}</td>
+            </tr>
+            <tr>
+                <td>First Name: </td>
+                <td>{{ newPerson.FirstName }}</td>
+            </tr>
+            <tr>
+                <td>LastName: </td>
+                <td>{{ newPerson.LastName }}</td>
+            </tr>
+            <tr>
+                <td>Occupation: </td>
+                <td>{{ newPerson.Occupation }}</td>
+            </tr>
+            <tr>
+                <td>Gender: </td>
+                <td>{{ newPerson.Gender }}</td>
+            </tr>
+            <tr>
+                <td>Picture: </td>
+                <td><img ng-src='{{ newPerson.Picture }}' style='height: 90px' alt='{{ newPerson.FirstName }}' /></td>
+            </tr>
+            <tr>
+                <td>Created: </td>
+                <td>{{ newPerson.Created | date:'yyyy-MM-dd @ HH:mm:ss'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
