@@ -36,7 +36,7 @@ namespace DiplomaOptions.Controllers
         public ActionResult Create()
         {
             var terms = db.YearTerms.OrderByDescending(x => x.Term);
-            ViewBag.Terms = new SelectList(terms, "YearTermId", "Term");
+            ViewBag.Terms = new SelectList(terms, "YearTermId", "Year");
             return View();
         }
 

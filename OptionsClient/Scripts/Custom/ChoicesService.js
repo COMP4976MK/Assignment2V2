@@ -4,7 +4,7 @@
 
     var ChoicesService = function ($http) {
 
-        var baseUrl = 'http://flintstones.zift.ca/api/flintstones/';
+        var baseUrl = 'http://choices.kpatena.me/api/Choices/';
 
         var _getChoice = function (id) {
             return $http.get(baseUrl + id)
