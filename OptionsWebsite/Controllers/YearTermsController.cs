@@ -72,7 +72,7 @@ namespace DiplomaOptions.Controllers
         public ActionResult Edit(int? id)
         {
             var terms = db.YearTerms.OrderByDescending(x => x.Term);
-            ViewBag.Terms = new SelectList(terms, "YearTermId", "Term");
+            ViewBag.Terms = new SelectList(terms, "Term", "Term");
 
             if (id == null)
             {

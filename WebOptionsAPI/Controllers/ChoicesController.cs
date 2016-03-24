@@ -12,6 +12,7 @@ using DiplomaDataModel.CourseOption;
 
 namespace WebOptionsAPI.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class ChoicesController : ApiController
     {
         private CourseOptionContext db = new CourseOptionContext();
