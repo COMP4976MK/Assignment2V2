@@ -35,8 +35,17 @@ namespace DiplomaOptions.Controllers
         // GET: YearTerms/Create
         public ActionResult Create()
         {
-            var terms = db.YearTerms.OrderByDescending(x => x.Term);
-            ViewBag.Terms = new SelectList(terms, "YearTermId", "Year");
+            var terms = db.YearTerms.OrderByDescending(x => x.Term).GroupBy(y => y.Term).Select(grp => grp.FirstOrDefault())
+                   .ToList().Select(s => new
+                   {
+                       YearTermID = s.YearTermId,
+                       Term = s.Term,
+                       TermString = getTerm(s.Term)
+                   }); ;
+            var years = db.YearTerms.OrderByDescending(x => x.Year).GroupBy(y => y.Year).Select(grp => grp.FirstOrDefault())
+                   .ToList();
+            ViewBag.Years = new SelectList(years, "Year", "Year");
+            ViewBag.Terms = new SelectList(terms, "Term", "TermString");
             return View();
         }
 
@@ -71,8 +80,17 @@ namespace DiplomaOptions.Controllers
         // GET: YearTerms/Edit/5
         public ActionResult Edit(int? id)
         {
-            var terms = db.YearTerms.OrderByDescending(x => x.Term);
-            ViewBag.Terms = new SelectList(terms, "Term", "Term");
+            var terms = db.YearTerms.OrderByDescending(x => x.Term).GroupBy(y => y.Term).Select(grp => grp.FirstOrDefault())
+                    .ToList().Select(s => new
+                    {
+                        YearTermID = s.YearTermId,
+                        Term = s.Term,
+                        TermString = getTerm(s.Term)
+                    }); ;
+            var years = db.YearTerms.OrderByDescending(x => x.Year).GroupBy(y => y.Year).Select(grp => grp.FirstOrDefault())
+                  .ToList();
+            ViewBag.Years = new SelectList(years, "Year", "Year");
+            ViewBag.Terms = new SelectList(terms, "Term", "TermString");
 
             if (id == null)
             {
@@ -148,6 +166,20 @@ namespace DiplomaOptions.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string getTerm(int term)
+        {
+            if (term == 10)
+            {
+                return "Winter";
+            } else if (term == 20)
+            {
+                return "Spring/Summer";
+            } else
+            {
+                return "Fall";
+            }
         }
     }
 }

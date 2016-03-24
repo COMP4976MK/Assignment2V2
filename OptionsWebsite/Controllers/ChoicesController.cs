@@ -25,6 +25,7 @@ namespace DiplomaOptions.Controllers
             List<String> reports = new List<string>();
             reports.Add("Detailed Reports");
             reports.Add("Chart");
+
             var yearTerm = db.YearTerms.FirstOrDefault(p => p.IsDefault);
             var yearterms = db.YearTerms.GroupBy(test => test.YearTermId)
                    .Select(grp => grp.FirstOrDefault())
@@ -32,7 +33,7 @@ namespace DiplomaOptions.Controllers
                    .Select(s => new
                    {
                        YearTermID = s.YearTermId,
-                       YT = string.Format("{0}/{1}", s.Year, s.Term)
+                       YT = getYearTerm(s.Year, s.Term)
                    });
 
             ViewBag.Terms = new SelectList(yearterms, "YearTermId", "YT", yearTerm.YearTermId);
@@ -299,6 +300,20 @@ namespace DiplomaOptions.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string getYearTerm(int year, int term)
+        {
+            if (term == 10)
+            {
+                return "Winter " + year;
+            } else if (term == 20)
+            {
+                return "Spring/Summer " + year;
+            } else
+            {
+                return "Fall " + year;
+            }
         }
     }
 }
