@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DiplomaDataModel.CourseOption;
+using System.Collections.Generic;
 
 namespace DiplomaOptions.Controllers
 {

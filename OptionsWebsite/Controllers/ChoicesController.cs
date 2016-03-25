@@ -333,9 +333,9 @@ namespace DiplomaOptions.Controllers
             }
         }
 
-        public JsonResult getChoices()
+        public JsonResult getChoices(int id)
         {
-            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
+            var choices = db.Choices.Where(c => c.YearTermId == id).Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
             return Json(choices, JsonRequestBehavior.AllowGet);
         }
     }
