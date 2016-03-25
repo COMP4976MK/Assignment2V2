@@ -1,0 +1,32 @@
+﻿<div class="main_content">
+    <div class="jumbotron">
+        <h1>Diploma Options</h1>
+        <p>
+            Login
+        </p>
+    </div>
+    <table class="table table-bordered table-striped table-condensed">
+        <tr>
+            <td>Username:</td>
+            <td>
+                <input type="text" class="form-control"
+                       ng-model="userLoginEmail" />
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type="password"
+                       class="form-control"
+                       ng-model="userLoginPassword" />
+            </td>
+        </tr>
+        <tr>
+            <td><a href="#/register"<button type="button" class="btn btn-info">Register</button></a></td>
+            <td>
+                <input type="button" value="Login" class="form-control btn btn-success"
+                       ng-click="login()" />
+            </td>
+        </tr>
+    </table>
+</div>

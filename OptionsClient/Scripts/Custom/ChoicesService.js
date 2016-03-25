@@ -1,4 +1,4 @@
-﻿// CartoonService.js
+﻿// ChoicesService.js
 
 (function () {
 
@@ -14,10 +14,19 @@
         };
 
         var _getAllChoices = function () {
-            return $http.get(baseUrl)
-              .then(function (response) {
-                  return response.data;
-              });
+            var accesstoken = sessionStorage.getItem('accessToken');
+
+            var authHeaders = {};
+            if (accesstoken) {
+                authHeaders.Authorization = 'Bearer ' + accesstoken;
+            }
+
+            var response = $http({
+                url: baseUrl,
+                metod: "GET",
+                headers: authHeaders
+            });
+            return response.data;
         };
 
         var _addChoice = function (data) {

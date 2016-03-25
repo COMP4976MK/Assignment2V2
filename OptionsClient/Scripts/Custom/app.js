@@ -3,17 +3,17 @@
 
     app.config(function ($routeProvider) {
         $routeProvider
-          .when("/create", {
+          .when("/addChoice", {
               templateUrl: "views/create.html",
               controller: "ChoicesController"
           })
           .when("/register", {
               templateUrl: "views/register.html",
-              controller: "ChoicesController"
+              controller: "AccountController"
           })
           .when("/login", {
               templateUrl: "views/login.html",
-              controller: "ChoicesController"
+              controller: "AccountController"
           })
             .when("/showAll", {
                 templateUrl: "views/showAll.html",
@@ -23,6 +23,6 @@
                  templateUrl: "views/find.html",
                  controller: "ChoicesController"
              })
-          .otherwise({ redirectTo: "/showAll" });
+          .otherwise({ redirectTo: "/login" });
     });
 }());
