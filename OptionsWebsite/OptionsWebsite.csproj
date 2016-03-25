@@ -214,6 +214,10 @@
     <Compile Include="Migrations\CourseOptionMigrations\201603240324430_SeedChoices.Designer.cs">
       <DependentUpon>201603240324430_SeedChoices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\CourseOptionMigrations\201603251930216_Seed2016.cs" />
+    <Compile Include="Migrations\CourseOptionMigrations\201603251930216_Seed2016.Designer.cs">
+      <DependentUpon>201603251930216_Seed2016.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CourseOptionMigrations\Configuration.cs" />
     <Compile Include="Migrations\UserMigrations\201602162106583_UserInitialCreate.cs" />
     <Compile Include="Migrations\UserMigrations\201602162106583_UserInitialCreate.Designer.cs">
@@ -1121,6 +1125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\CourseOptionMigrations\201603240324430_SeedChoices.resx">
       <DependentUpon>201603240324430_SeedChoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\CourseOptionMigrations\201603251930216_Seed2016.resx">
+      <DependentUpon>201603251930216_Seed2016.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\UserMigrations\201602162106583_UserInitialCreate.resx">
       <DependentUpon>201602162106583_UserInitialCreate.cs</DependentUpon>
