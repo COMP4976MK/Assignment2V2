@@ -11,6 +11,7 @@
 
         $scope.userName = "";
 
+        $scope.userRegistrationUsername
         $scope.userRegistrationEmail = "";
         $scope.userRegistrationPassword = "";
         $scope.userRegistrationConfirmPassword = "";
@@ -27,6 +28,7 @@
 
             //The User Registration Information
             var userRegistrationInfo = {
+                Username: $scope.userRegistrationUsername,
                 Email: $scope.userRegistrationEmail,
                 Password: $scope.userRegistrationPassword,
                 ConfirmPassword: $scope.userRegistrationConfirmPassword
@@ -36,6 +38,7 @@
 
             promiseregister.then(function (resp) {
                 $scope.responseData = "User is Successfully";
+                $scope.userRegistrationUsername
                 $scope.userRegistrationEmail = "";
                 $scope.userRegistrationPassword = "";
                 $scope.userRegistrationConfirmPassword = "";
