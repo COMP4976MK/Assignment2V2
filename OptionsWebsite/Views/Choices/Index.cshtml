@@ -6,110 +6,35 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Reports</h4>
-        <hr />
+@section scripts{
 
-        <div class="form-group">
-            <div class="col-md-5">
-                @Html.DropDownList("YearTerms", ViewBag.Terms as SelectList)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-5">
-                @Html.DropDownList("Reports", ViewBag.Reports as SelectList)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Generate Report" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    <script src="~/Scripts/Custom/Reports.js"> </script>
 }
-<hr />
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecondChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThirdChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FourthChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YearTerm.Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YearTerm.Term)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentLastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectionDate)
-        </th>
-        <th></th>
-    </tr>
+<hr />
+<div ng-app="ChoicesApp" class="container">
+    <div ng-controller="ChoicesController">
+        <form>
+            @Html.DropDownList("YearTerms", ViewBag.Terms as SelectList, new { required = true, ng_model = "selectYearTerm" })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThirdOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FourthOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.Term)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SelectionDate.Date)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })
-        </td>
-    </tr>
-}
+            @Html.DropDownList("Reports", ViewBag.Reports as SelectList, new { required = true, ng_model = "selectedReportType" })
 
-</table>
+            <input type="submit" value="Generate Report" class="form-control btn btn-success"
+                   ng-click="GenerateReport()" />
+        </form>
+
+        <table class="table">
+            <tr ng-repeat="o in choices">
+                <td>{{o.ChoicesId}}</td>
+                <td>{{o.YearTermId}}</td>
+             </tr>
+         </table>
+    </div>
+</div>
+
+
+

@@ -22,6 +22,7 @@ namespace DiplomaOptions.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            string term;
             List<String> reports = new List<string>();
             reports.Add("Detailed Reports");
             reports.Add("Chart");
@@ -36,6 +37,22 @@ namespace DiplomaOptions.Controllers
                        YT = getYearTerm(s.Year, s.Term)
                    });
 
+            switch (yearTerm.Term)
+            {
+                case 10:
+                    term = "Winter";
+                    break;
+                case 20:
+                    term = "Spring/Summer";
+                    break;
+                case 30:
+                    term = "Fall";
+                    break;
+                default:
+                    term = "Chaos";
+                    break;
+            }
+            ViewBag.defaultTerm = term + " " + yearTerm.Year;
             ViewBag.Terms = new SelectList(yearterms, "YearTermId", "YT", yearTerm.YearTermId);
             ViewBag.Reports = new SelectList(reports);
             var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
@@ -315,5 +332,17 @@ namespace DiplomaOptions.Controllers
                 return "Fall " + year;
             }
         }
+
+        public JsonResult getChoices()
+        {
+            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
+            return Json(choices, JsonRequestBehavior.AllowGet);
+        }
+    }
+
+    public class Report
+    {
+        public int yeartermId;
+        public string report_type;
     }
 }
