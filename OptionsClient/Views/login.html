@@ -5,28 +5,35 @@
             Login
         </p>
     </div>
-    <table class="table table-bordered table-striped table-condensed">
-        <tr>
-            <td>Username:</td>
-            <td>
-                <input type="text" class="form-control"
-                       ng-model="userLoginEmail" />
-            </td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td>
-                <input type="password"
-                       class="form-control"
-                       ng-model="userLoginPassword" />
-            </td>
-        </tr>
-        <tr>
-            <td><a href="#/register"<button type="button" class="btn btn-info">Register</button></a></td>
-            <td>
-                <input type="button" value="Login" class="form-control btn btn-success"
-                       ng-click="login()" />
-            </td>
-        </tr>
-    </table>
+    <div><p class="error"><font color="red">{{responseData}}</font></p></div>
+    <div class="row">
+        <div class="col-md-8">
+            <form>
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr>
+                        <td>Username:</td>
+                        <td>
+                            <input type="text" class="form-control"
+                                   ng-model="userLoginUserName" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+                            <input type="password"
+                                   class="form-control"
+                                   ng-model="userLoginPassword" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#/register"<button type="button" class="btn btn-info">Register</button></a></td>
+                        <td>
+                            <input type="submit" value="Login" class="form-control btn btn-success"
+                                   ng-click="login()" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
 </div>

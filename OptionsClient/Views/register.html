@@ -3,44 +3,51 @@
         <h1>Diploma Options</h1>
         <p>
             Register
-        </p> 
+        </p>
     </div>
-    <table class="table table-bordered table-striped table-condensed">
-        <tr>
-            <td>Username:</td>
-            <td>
-                <input type="text" class="form-control"
-                       ng-model="userRegistrationUsername" />
-            </td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td>
-                <input type="text" class="form-control"
-                       ng-model="userRegistrationEmail" />
-            </td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td>
-                <input type="password" class="form-control"
-                       ng-model="userRegistrationPassword" />
-            </td>
-        </tr>
-        <tr>
-            <td>Confirm Password:</td>
-            <td>
-                <input type="password" class="form-control"
-                       ng-model="userRegistrationConfirmPassword" />
-            </td>
-        </tr>
-        <tr>
-            <td><a href="#/login"<button type="button" class="btn btn-info">Back to Login</button></a></td>
-            <td>
-                <input type="button" value="Register"
-                       class="form-control btn btn-success"
-                       ng-click="registerUser()" />
-            </td>
-        </tr>
-    </table>
+    <div><p class="error"><font color="red">{{responseData}}</font></p></div>
+    <div class="row">
+        <div class="col-md-8">
+            <form>
+                <table class="table table-bordered table-striped table-condensed">
+                    <tr>
+                        <td>Username:</td>
+                        <td>
+                            <input type="text" class="form-control"
+                                   ng-model="userRegistrationUsername" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>
+                            <input type="text" class="form-control"
+                                   ng-model="userRegistrationEmail" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+                            <input type="password" class="form-control"
+                                   ng-model="userRegistrationPassword" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Confirm Password:</td>
+                        <td>
+                            <input type="password" class="form-control"
+                                   ng-model="userRegistrationConfirmPassword" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#/login"<button type="button" class="btn btn-info">Back to Login</button></a></td>
+                        <td>
+                            <input type="submit" value="Register"
+                                   class="form-control btn btn-success"
+                                   ng-click="registerUser()" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
 </div>

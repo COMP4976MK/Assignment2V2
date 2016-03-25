@@ -37,18 +37,19 @@
             var promiseregister = AccountService.register(userRegistrationInfo);
 
             promiseregister.then(function (resp) {
-                $scope.responseData = "User is Successfully";
-                $scope.userRegistrationUsername
+                $scope.responseData = "User Successfully Registered";
+                $scope.userRegistrationUsername = "";
                 $scope.userRegistrationEmail = "";
                 $scope.userRegistrationPassword = "";
                 $scope.userRegistrationConfirmPassword = "";
+                window.location.href = '#/login';
             }, function (err) {
-                $scope.responseData = "Error " + err.status;
+                $scope.responseData = "Error: Correct Username/Password Required";
             });
         };
 
         $scope.redirect = function () {
-            window.location.href = '/showAll';
+            window.location.href = '#/addChoice';
         };
 
         //Function to Login. This will generate Token 
@@ -56,7 +57,7 @@
             //This is the information to pass for token based authentication
             var userLogin = {
                 grant_type: 'password',
-                username: $scope.userName,
+                username: $scope.userLoginUserName,
                 password: $scope.userLoginPassword
             };
 
@@ -70,10 +71,10 @@
                 sessionStorage.setItem('userName', resp.data.userName);
                 sessionStorage.setItem('accessToken', resp.data.access_token);
                 sessionStorage.setItem('refreshToken', resp.data.refresh_token);
-                window.location.href = '/showAll';
+                window.location.href = '#/addChoice';
             }, function (err) {
 
-                $scope.responseData = "Error " + err.status;
+                $scope.responseData = "Error: Correct Username/Password Required";
             });
 
         };

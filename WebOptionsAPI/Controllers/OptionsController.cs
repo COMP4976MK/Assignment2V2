@@ -12,46 +12,45 @@ using DiplomaDataModel.CourseOption;
 
 namespace WebOptionsAPI.Controllers
 {
-    [Authorize(Roles = "Student, Admin")]
-    public class ChoicesController : ApiController
+    public class OptionsController : ApiController
     {
         private CourseOptionContext db = new CourseOptionContext();
 
-        // GET: api/Choices
-        public IQueryable<Choice> GetChoices()
+        // GET: api/Options
+        public IQueryable<Option> GetOptions()
         {
-            return db.Choices;
+            var options = db.Options.Where(p => p.IsActive);
+            return options;
         }
 
-
-        // GET: api/Choices/5
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult GetChoice(int id)
+        // GET: api/Options/5
+        [ResponseType(typeof(Option))]
+        public IHttpActionResult GetOption(int id)
         {
-            Choice choice = db.Choices.Find(id);
-            if (choice == null)
+            Option option = db.Options.Find(id);
+            if (option == null)
             {
                 return NotFound();
             }
 
-            return Ok(choice);
+            return Ok(option);
         }
 
-        // PUT: api/Choices/5
+        // PUT: api/Options/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutChoice(int id, Choice choice)
+        public IHttpActionResult PutOption(int id, Option option)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != choice.ChoiceId)
+            if (id != option.OptionId)
             {
                 return BadRequest();
             }
 
-            db.Entry(choice).State = EntityState.Modified;
+            db.Entry(option).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +58,7 @@ namespace WebOptionsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChoiceExists(id))
+                if (!OptionExists(id))
                 {
                     return NotFound();
                 }
@@ -72,35 +71,35 @@ namespace WebOptionsAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Choices
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult PostChoice(Choice choice)
+        // POST: api/Options
+        [ResponseType(typeof(Option))]
+        public IHttpActionResult PostOption(Option option)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            choice.SelectionDate = System.DateTime.Now;
-            db.Choices.Add(choice);
+
+            db.Options.Add(option);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = choice.ChoiceId }, choice);
+            return CreatedAtRoute("DefaultApi", new { id = option.OptionId }, option);
         }
 
-        // DELETE: api/Choices/5
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult DeleteChoice(int id)
+        // DELETE: api/Options/5
+        [ResponseType(typeof(Option))]
+        public IHttpActionResult DeleteOption(int id)
         {
-            Choice choice = db.Choices.Find(id);
-            if (choice == null)
+            Option option = db.Options.Find(id);
+            if (option == null)
             {
                 return NotFound();
             }
 
-            db.Choices.Remove(choice);
+            db.Options.Remove(option);
             db.SaveChanges();
 
-            return Ok(choice);
+            return Ok(option);
         }
 
         protected override void Dispose(bool disposing)
@@ -112,9 +111,9 @@ namespace WebOptionsAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ChoiceExists(int id)
+        private bool OptionExists(int id)
         {
-            return db.Choices.Count(e => e.ChoiceId == id) > 0;
+            return db.Options.Count(e => e.OptionId == id) > 0;
         }
     }
 }

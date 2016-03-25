@@ -76,6 +76,47 @@
             .then(onFindComplete, onFindError);
         };
 
+        $scope.init = function () {
+            ChoicesService.getYearTerm()
+            .then(onGetYearTerm, onGetYearTermError);
+        };
+
+        var onGetYearTerm = function (data) {
+            $scope.yearterm = data;
+            switch (data.Term) {
+                case 10:
+                    $scope.term = "Winter";
+                    break;
+                case 20:
+                    $scope.term = "Spring/Summer";
+                    break;
+                case 30:
+                    $scope.term = "Fall";
+                    break;
+            }
+            $scope.userStudentId = sessionStorage.getItem('userName');
+            $scope.userTermId = data.YearTermId;
+            ChoicesService.getOptions()
+            .then(onGetOptions, onGetOptionsError);
+        };
+
+        var onGetYearTermError = function (reason) {
+            $scope.error = "Could not get year and term";
+        };
+
+        var onGetOptions = function (data) {
+            $scope.options = data;
+        };
+
+        var onGetOptionsError = function (reason) {
+            $scope.error = "Could not get options.";
+        };
+
+        $scope.logout = function () {
+
+            sessionStorage.removeItem('accessToken');
+            window.location.href = '#/login';
+        };
     };
 
     app.controller("ChoicesController", ChoicesController);

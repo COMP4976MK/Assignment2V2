@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using WebOptionsAPI.Models;
 using WebOptionsAPI.Providers;
 using WebOptionsAPI.Results;
+using System.Web.Http.Cors;
 
 namespace WebOptionsAPI.Controllers
 {
@@ -319,6 +320,7 @@ namespace WebOptionsAPI.Controllers
         }
 
         // POST api/Account/Register
+        [EnableCors("*", "*", "PUT,POST")]
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -328,7 +330,7 @@ namespace WebOptionsAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Username, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

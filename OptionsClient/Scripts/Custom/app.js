@@ -15,14 +15,14 @@
               templateUrl: "views/login.html",
               controller: "AccountController"
           })
-            .when("/showAll", {
+          .when("/showAll", {
                 templateUrl: "views/showAll.html",
                 controller: "ChoicesController"
-            })
-             .when("/find", {
+          })
+           .when("/find", {
                  templateUrl: "views/find.html",
                  controller: "ChoicesController"
-             })
+           })
           .otherwise({ redirectTo: "/login" });
     });
 }());

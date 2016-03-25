@@ -36,7 +36,7 @@ namespace WebOptionsAPI.Models
     {
         [Required]
         [Display(Name = "UserName")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [Display(Name = "Email")]

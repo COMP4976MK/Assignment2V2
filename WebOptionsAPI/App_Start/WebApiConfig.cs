@@ -17,7 +17,7 @@ namespace WebOptionsAPI
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-            var cors = new EnableCorsAttribute("*", "*", "GET, POST, OPTIONS");
+            var cors = new EnableCorsAttribute("*", "*", "GET");
             config.EnableCors(cors);
 
             // Web API routes

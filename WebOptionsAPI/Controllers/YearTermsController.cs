@@ -12,46 +12,48 @@ using DiplomaDataModel.CourseOption;
 
 namespace WebOptionsAPI.Controllers
 {
-    [Authorize(Roles = "Student, Admin")]
-    public class ChoicesController : ApiController
+    public class YearTermsController : ApiController
     {
         private CourseOptionContext db = new CourseOptionContext();
 
-        // GET: api/Choices
-        public IQueryable<Choice> GetChoices()
+        // GET: api/YearTerms
+        [ResponseType(typeof(YearTerm))]
+        public IHttpActionResult GetYearTerm()
         {
-            return db.Choices;
+            var yearTerm = db.YearTerms.FirstOrDefault(p => p.IsDefault);
+
+
+            return Ok(yearTerm);
         }
 
-
-        // GET: api/Choices/5
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult GetChoice(int id)
+        // GET: api/YearTerms/5
+        [ResponseType(typeof(YearTerm))]
+        public IHttpActionResult GetYearTerm(int id)
         {
-            Choice choice = db.Choices.Find(id);
-            if (choice == null)
+            YearTerm yearTerm = db.YearTerms.Find(id);
+            if (yearTerm == null)
             {
                 return NotFound();
             }
 
-            return Ok(choice);
+            return Ok(yearTerm);
         }
 
-        // PUT: api/Choices/5
+        // PUT: api/YearTerms/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutChoice(int id, Choice choice)
+        public IHttpActionResult PutYearTerm(int id, YearTerm yearTerm)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != choice.ChoiceId)
+            if (id != yearTerm.YearTermId)
             {
                 return BadRequest();
             }
 
-            db.Entry(choice).State = EntityState.Modified;
+            db.Entry(yearTerm).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +61,7 @@ namespace WebOptionsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChoiceExists(id))
+                if (!YearTermExists(id))
                 {
                     return NotFound();
                 }
@@ -72,35 +74,35 @@ namespace WebOptionsAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Choices
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult PostChoice(Choice choice)
+        // POST: api/YearTerms
+        [ResponseType(typeof(YearTerm))]
+        public IHttpActionResult PostYearTerm(YearTerm yearTerm)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            choice.SelectionDate = System.DateTime.Now;
-            db.Choices.Add(choice);
+
+            db.YearTerms.Add(yearTerm);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = choice.ChoiceId }, choice);
+            return CreatedAtRoute("DefaultApi", new { id = yearTerm.YearTermId }, yearTerm);
         }
 
-        // DELETE: api/Choices/5
-        [ResponseType(typeof(Choice))]
-        public IHttpActionResult DeleteChoice(int id)
+        // DELETE: api/YearTerms/5
+        [ResponseType(typeof(YearTerm))]
+        public IHttpActionResult DeleteYearTerm(int id)
         {
-            Choice choice = db.Choices.Find(id);
-            if (choice == null)
+            YearTerm yearTerm = db.YearTerms.Find(id);
+            if (yearTerm == null)
             {
                 return NotFound();
             }
 
-            db.Choices.Remove(choice);
+            db.YearTerms.Remove(yearTerm);
             db.SaveChanges();
 
-            return Ok(choice);
+            return Ok(yearTerm);
         }
 
         protected override void Dispose(bool disposing)
@@ -112,9 +114,9 @@ namespace WebOptionsAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ChoiceExists(int id)
+        private bool YearTermExists(int id)
         {
-            return db.Choices.Count(e => e.ChoiceId == id) > 0;
+            return db.YearTerms.Count(e => e.YearTermId == id) > 0;
         }
     }
 }

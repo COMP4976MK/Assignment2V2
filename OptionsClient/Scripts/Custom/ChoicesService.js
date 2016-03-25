@@ -5,6 +5,8 @@
     var ChoicesService = function ($http) {
 
         var baseUrl = 'http://choices.kpatena.me/api/Choices/';
+        var yearTermUrl = 'http://choices.kpatena.me/api/YearTerms/';
+        var optionsUrl = 'http://choices.kpatena.me/api/Options/';
 
         var _getChoice = function (id) {
             return $http.get(baseUrl + id)
@@ -21,12 +23,13 @@
                 authHeaders.Authorization = 'Bearer ' + accesstoken;
             }
 
-            var response = $http({
-                url: baseUrl,
-                metod: "GET",
-                headers: authHeaders
-            });
-            return response.data;
+            var config = {headers: authHeaders};
+
+            return $http.get(baseUrl, config)
+              .then(function (response) {
+                  return response.data;
+              });
+
         };
 
         var _addChoice = function (data) {
@@ -50,12 +53,28 @@
               });
         };
 
+        var _getYearTerm = function () {
+            return $http.get(yearTermUrl)
+              .then(function (response) {
+                  return response.data;
+              });
+        };
+
+        var _getOptions = function () {
+            return $http.get(optionsUrl)
+              .then(function (response) {
+                  return response.data;
+              });
+        };
+
         return {
             getChoice: _getChoice,
             getAllChoices: _getAllChoices,
             addChoice: _addChoice,
             deleteChoice: _deleteChoice,
-            updateChoice: _updateChoice
+            updateChoice: _updateChoice,
+            getYearTerm: _getYearTerm,
+            getOptions: _getOptions
         };
     };
 
