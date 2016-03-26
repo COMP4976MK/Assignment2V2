@@ -3,9 +3,9 @@
 (function () {
 
     var app = angular.module("choicesViewer");
-
+    
     var AccountController = function ($scope, $location, AccountService) {
-
+        
         //Scope Declaration
         $scope.responseData = "";
 
@@ -21,6 +21,17 @@
 
         $scope.accessToken = "";
         $scope.refreshToken = "";
+
+        $scope.submit = function(isValid) {
+            console.log("h");
+            if (isValid) {
+                $scope.message = "Submitted " + $scope.userRegistrationInfo.userRegistrationUsername;
+            } else {
+                $scope.message = "There are still invalid fields below";
+            }
+        };
+
+    
 
         $scope.registerUser = function () {
 
@@ -79,6 +90,26 @@
 
         };
     };
+   
+    var compareTo = function () {
+        return {
+            require: "ngModel",
+            scope: {
+                otherModelValue: "=compareTo"
+            },
+            link: function (scope, element, attributes, ngModel) {
+
+                ngModel.$validators.compareTo = function (modelValue) {
+                    return modelValue == scope.otherModelValue;
+                };
+
+                scope.$watch("otherModelValue", function () {
+                    ngModel.$validate();
+                });
+            }
+        };
+    };
 
     app.controller("AccountController", AccountController);
+
 }());
