@@ -55,7 +55,10 @@
                 $scope.userRegistrationConfirmPassword = "";
                 window.location.href = '#/login';
             }, function (err) {
-                $scope.responseData = "Error: Correct Username/Password Required";
+                if ($scope.userRegistrationPassword != $scope.userRegistrationConfirmPassword) {
+                    $scope.passwordError = "Error: Passwords don't match";
+                }
+                $scope.responseData = "Error: Incorrect Fields. Invalid Registration.";
             });
         };
 
@@ -85,7 +88,7 @@
                 window.location.href = '#/addChoice';
             }, function (err) {
 
-                $scope.responseData = "Error: Correct Username/Password Required";
+                $scope.responseData = "Error: Invalid login attempt";
             });
 
         };

@@ -6,6 +6,7 @@
         </p> 
     </div>
     <div><p class="error"><font color="red">{{responseData}}</font></p></div>
+    <div><p class="error"><font color="red">{{passwordError}}</font></p></div>
     <div class="row">
         <div class="col-md-8">
                 <form name="registrationForm">                   
@@ -14,30 +15,28 @@
                                 <td>Username:</td>
                                 <td>
                                         <input type="text" class="form-control" name="userRegistrationUsername"
-                                               ng-model="account.userRegistrationUsername" ng-minlength="9" ng-maxlength="9" required />
-                                        <span ng-message="required">Username is required.</span>
+                                               ng-model="userRegistrationUsername" ng-minlength="9" ng-maxlength="9" required />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Email:</td>
                                 <td>
                                     <input type="email" class="form-control" name="userRegistrationEmail"
-                                           ng-model="account.userRegistrationEmail" />
-                                    <span ng-message="required">Email is required.</span>
+                                           ng-model="userRegistrationEmail" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Password:</td>
                                 <td>
                                     <input type="password" class="form-control" name="userRegistrationPassword"
-                                           ng-model="account.userRegistrationPassword" required />
+                                           ng-model="userRegistrationPassword" required />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Confirm Password:</td>
                                 <td>
                                     <input type="password" class="form-control" name="userRegistrationConfirmPassword"
-                                           ng-model="account.userRegistrationConfirmPassword" required />
+                                           ng-model="userRegistrationConfirmPassword" required />
                                 </td>
                             </tr>
                             <tr>

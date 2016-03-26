@@ -76,9 +76,18 @@ namespace WebOptionsAPI.Controllers
         [ResponseType(typeof(Choice))]
         public IHttpActionResult PostChoice(Choice choice)
         {
+            var yearTerm = db.YearTerms.FirstOrDefault(p => p.IsDefault);
+            var choiceTable = db.Choices.FirstOrDefault(c => c.YearTermId == yearTerm.YearTermId && c.StudentId == choice.StudentId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            if (choiceTable != null)
+            {
+
+                return BadRequest("Already registered in term");
+
             }
             choice.SelectionDate = System.DateTime.Now;
             db.Choices.Add(choice);

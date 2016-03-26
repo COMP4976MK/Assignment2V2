@@ -9,7 +9,11 @@
             {{term}} {{yearterm.Year}}
         </p>
     </div>
-    <div><p class="error"><font color="red">{{responseData}}</font></p></div>
+    <div><p class="error"><font color="green">{{choiceSubmitted}}</font></p></div>
+    <div><p class="error"><font color="red">{{errorEntered}}</font></p></div>
+    <div><p class="error"><font color="red">{{errorMissing}}</font></p></div>
+    <div><p class="error"><font color="red">{{errorDifferent}}</font></p></div>
+    <div><p class="error"><font color="red">{{OverallError}}</font></p></div>
     <div class="row">
         <div class="col-md-8">
             <form>
@@ -77,17 +81,11 @@
                         <td>
                             <input type="submit" value="Save Choice"
                                    class="form-control btn btn-success"
-                                   ng-click="registerUser()" />
+                                   ng-click="addChoice()" />
                         </td>
                     </tr>
                 </table>
             </form>
-
-            <tt>repeatSelect = {{firstOptionId}}</tt><br />
-            <tt>repeatSelect = {{secondOptionId}}</tt><br />
-            <tt>repeatSelect = {{thirdOptionId}}</tt><br />
-            <tt>repeatSelect = {{fourthOptionId}}</tt><br />
-            <tt>repeatSelect = {{userTermId}}</tt><br />
         </div>
     </div>
 </div>

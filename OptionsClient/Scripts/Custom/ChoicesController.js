@@ -17,18 +17,6 @@
             FourthChoiceOptionId: ""
         };
 
-        var onGetAllComplete = function (data) {
-            $scope.choices = data;
-        };
-
-        var onGetAllError = function (reason) {
-            $scope.error = "Could not get all choices.";
-        };
-
-        $scope.search = function () {
-            ChoicesService.getAllChoices()
-              .then(onGetAllComplete, onGetAllError);
-        };
 
         var onAddComplete = function (data) {
             $scope.newChoice = data;
@@ -42,39 +30,56 @@
             _choice.ThirdChoiceOptionId = "";
             _choice.FourthChoiceOptionId = "";
 
+            $scope.choiceSubmitted = "Choice submitted!";
+            $scope.userFirstName = "";
+            $scope.userLastName = "";
+            $scope.firstOptionId = "";
+            $scope.secondOptionId = "";
+            $scope.thirdOptionId = "";
+            $scope.fourthOptionId = "";
+
         };
 
         var onAddError = function (reason) {
-            $scope.error = "Could not add a choice.";
+            $scope.errorEntered = reason.data.Message;
         };
 
         $scope.addChoice = function () {
+            var errorVal = 0;
             var data = {
-                YearTermId: $scope.choice.YearTermId,
-                StudentId: $scope.choice.StudentId,
-                StudentFirstName: $scope.choice.StudentFirstName,
-                StudentLastName: $scope.choice.StudentLastName,
-                FirstChoiceOptionId: $scope.choice.FirstChoiceOptionId,
-                SecondChoiceOptionId: $scope.choice.SecondChoiceOptionId,
-                ThirdChoiceOptionId: $scope.choice.ThirdChoiceOptionId,
-                FourthChoiceOptionId: $scope.choice.FourthChoiceOptionId
+                YearTermId: $scope.userTermId,
+                StudentId: $scope.userStudentId,
+                StudentFirstName: $scope.userFirstName,
+                StudentLastName: $scope.userLastName,
+                FirstChoiceOptionId: $scope.firstOptionId,
+                SecondChoiceOptionId: $scope.secondOptionId,
+                ThirdChoiceOptionId: $scope.thirdOptionId,
+                FourthChoiceOptionId: $scope.fourthOptionId
             }
-            ChoicesService.addChoice(data)
-            .then(onAddComplete, onAddError);
+
+            if ($scope.userFirstName == "" && $scope.userLastName == "" && $scope.firstOptionId == ""
+                && $scope.secondOptionId == "" && $scope.thirdOptionId == "" && $scope.fourthOptionId == "") {
+                errorVal = 1;
+                $scope.errorMissing = "Error: some fields are missing.";
+            }
+
+            if (($scope.firstOptionId != $scope.secondOptionId && $scope.firstOptionId != $scope.thirdOptionId
+                && $scope.fourthOptionId) && ($scope.secondOptionId != $scope.thirdOptionId && $scope.secondOptionId != $scope.fourthOptionId)
+                && ($scope.thirdOptionId != $scope.fourthOptionId)) {
+                var allgood = 0;
+            } else {
+                errorVal = 1;
+                $scope.errorDifferent = "Error: Choices need to be different.";
+            }
+            if (errorVal == 0) {
+                ChoicesService.addChoice(data)
+                .then(onAddComplete, onAddError);
+            } else {
+                $scope.OverallError = "Error: Invalid Choice Submission."
+            }
+            
         };
 
-        var onFindComplete = function (data) {
-            $scope.choice = data;
-        };
-
-        var onFindError = function (reason) {
-            $scope.error = "Could not find a cartoon character.";
-        };
-
-        $scope.findChoice = function (choiceId) {
-            ChoicesService.getChoice(choiceId)
-            .then(onFindComplete, onFindError);
-        };
 
         $scope.init = function () {
             ChoicesService.getYearTerm()
