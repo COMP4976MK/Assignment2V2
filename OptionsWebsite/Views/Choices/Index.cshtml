@@ -17,11 +17,14 @@
 </p>
 <hr />
 <div ng-app="ChoicesApp" class="container">
-    <div ng-controller="ChoicesController">
+    <div ng-controller="ChoicesController" data-ng-init="init()">
         <form>
-            @Html.DropDownList("YearTerms", ViewBag.Terms as SelectList, new { required = true, ng_model = "selectedYearTerm" })
+            <select name="singleSelect" ng-model="selectedYearTerm" ng-options="yearterms.YearTermID as yearterms.YT for yearterms in options.yearterms " required >
+            </select>
 
-            @Html.DropDownList("Reports", ViewBag.Reports as SelectList, new { required = true, ng_model = "selectedReportType" })
+            <select name="singleSelect" ng-model="selectedReportType" required>
+                <option ng-repeat="option in options.reports" value="{{option}}">{{option}}</option>
+            </select>
 
             <input type="submit" value="Generate Report" class="form-control btn btn-success"
                    ng-click="GenerateReport()" />

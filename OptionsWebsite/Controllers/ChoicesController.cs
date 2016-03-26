@@ -55,8 +55,7 @@ namespace DiplomaOptions.Controllers
             ViewBag.defaultTerm = term + " " + yearTerm.Year;
             ViewBag.Terms = new SelectList(yearterms, "YearTermId", "YT", yearTerm.YearTermId);
             ViewBag.Reports = new SelectList(reports);
-            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
-            return View(choices.ToList());
+            return View();
         }
 
         // GET: Choices/Details/5
@@ -337,7 +336,6 @@ namespace DiplomaOptions.Controllers
         public JsonResult getChoices(int id, string report_type)
         {
             var choices = db.Choices.Where(c => c.YearTermId == id).Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
-            var choicesList = db.Choices.Where(c => c.YearTermId == id).ToList();
             var numOfChoicesInDataComm = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Data Communications" || c.SecondOption.Title == "Data Communications" || c.ThirdOption.Title == "Data Communications" || c.FourthOption.Title == "Data Communications"));
             var numOfChoicesInClientServer = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Client Server" || c.SecondOption.Title == "Client Server" || c.ThirdOption.Title == "Client Server" || c.FourthOption.Title == "Client Server"));
             var numOfChoicesInDigiPro = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Digital Processing" || c.SecondOption.Title == "Digital Processing" || c.ThirdOption.Title == "Digital Processing" || c.FourthOption.Title == "Digital Processing"));
@@ -365,11 +363,29 @@ namespace DiplomaOptions.Controllers
 
             }
         }
+
+        public JsonResult getYearTerms()
+        {
+
+            List<String> reports = new List<string>();
+            reports.Add("Detailed Report");
+            reports.Add("Chart");
+
+            var yearterms = db.YearTerms.GroupBy(test => test.YearTermId)
+                   .Select(grp => grp.FirstOrDefault())
+                   .ToList()
+                   .Select(s => new
+                   {
+                       YearTermID = s.YearTermId,
+                       YT = getYearTerm(s.Year, s.Term),
+                       isDefault = s.IsDefault
+                   });
+
+            return Json(new { reports, yearterms }, JsonRequestBehavior.AllowGet);
+
+        }
+
+
     }
 
-    public class Report
-    {
-        public int yeartermId;
-        public string report_type;
-    }
 }
