@@ -24,7 +24,7 @@ namespace DiplomaOptions.Controllers
         {
             string term;
             List<String> reports = new List<string>();
-            reports.Add("Detailed Reports");
+            reports.Add("Detailed Report");
             reports.Add("Chart");
 
             var yearTerm = db.YearTerms.FirstOrDefault(p => p.IsDefault);
@@ -333,10 +333,37 @@ namespace DiplomaOptions.Controllers
             }
         }
 
-        public JsonResult getChoices(int id)
+        [Route("{id: int}/{report_type}")]
+        public JsonResult getChoices(int id, string report_type)
         {
             var choices = db.Choices.Where(c => c.YearTermId == id).Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
-            return Json(choices, JsonRequestBehavior.AllowGet);
+            var choicesList = db.Choices.Where(c => c.YearTermId == id).ToList();
+            var numOfChoicesInDataComm = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Data Communications" || c.SecondOption.Title == "Data Communications" || c.ThirdOption.Title == "Data Communications" || c.FourthOption.Title == "Data Communications"));
+            var numOfChoicesInClientServer = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Client Server" || c.SecondOption.Title == "Client Server" || c.ThirdOption.Title == "Client Server" || c.FourthOption.Title == "Client Server"));
+            var numOfChoicesInDigiPro = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Digital Processing" || c.SecondOption.Title == "Digital Processing" || c.ThirdOption.Title == "Digital Processing" || c.FourthOption.Title == "Digital Processing"));
+            var numOfChoicesInInfoSys = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Information Systems" || c.SecondOption.Title == "Information Systems" || c.ThirdOption.Title == "Information Systems" || c.FourthOption.Title == "Information Systems"));
+            var numOfChoicesInDatabase = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Database" || c.SecondOption.Title == "Database" || c.ThirdOption.Title == "Database" || c.FourthOption.Title == "Database"));
+            var numOfChoicesInWebMobile = db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Web & Mobile" || c.SecondOption.Title == "Web & Mobile" || c.ThirdOption.Title == "Web & Mobile" || c.FourthOption.Title == "Web & Mobile"));
+            var numOfChoicesInTechPro= db.Choices.Where(c => c.YearTermId == id && (c.FirstOption.Title == "Tech Pro" || c.SecondOption.Title == "Tech Pro" || c.ThirdOption.Title == "Tech Pro" || c.FourthOption.Title == "Tech Pro"));
+
+            int numDataComm = numOfChoicesInDataComm.Count();
+            int numClientServer = numOfChoicesInClientServer.Count();
+            int numDigiPro = numOfChoicesInDigiPro.Count();
+            int numInfoSys = numOfChoicesInInfoSys.Count();
+            int numDatabase = numOfChoicesInDatabase.Count();
+            int numWebMobile = numOfChoicesInWebMobile.Count();
+            int numTechPro = numOfChoicesInTechPro.Count();
+
+            if (report_type == "Detailed Report")
+            {
+                return Json(new { type = "Detailed Report", choiceData = choices }, JsonRequestBehavior.AllowGet);
+
+            } else
+            {
+
+                return Json(new { type = "Chart", dataComm = numDataComm, clientServer = numClientServer, digiPro = numDigiPro, infoSys = numInfoSys, database = numDatabase, webMobile = numWebMobile, techPro = numTechPro }, JsonRequestBehavior.AllowGet);
+
+            }
         }
     }
 

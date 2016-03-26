@@ -18,6 +18,12 @@ namespace DiplomaOptions
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               name: "Choices",
+               url: "{controller}/{action}/{id}/{report_type}",
+               defaults: new { controller = "Choices", action = "Index", id = UrlParameter.Optional }
+           );
         }
     }
 }

@@ -8,7 +8,7 @@
 
 
 @section scripts{
-
+    <script src="~/Scripts/Chart.js"></script>
     <script src="~/Scripts/Custom/Reports.js"> </script>
 }
 
@@ -26,40 +26,33 @@
             <input type="submit" value="Generate Report" class="form-control btn btn-success"
                    ng-click="GenerateReport()" />
         </form>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ChoiceId</th>
-                    <th>Student ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Year</th>
-                    <th>Term</th>
-                    <th>First Option</th>
-                    <th>Second Option</th>
-                    <th>Third Option</th>
-                    <th>Fourth Option</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="o in choices">
-                    <td>{{o.ChoiceId}}</td>
-                    <td>{{o.StudentId}}</td>
-                    <td>{{o.StudentFirstName}}</td>
-                    <td>{{o.StudentLastName}}</td>
-                    <td>{{o.YearTerm.Year}}</td>
-                    <td>{{o.YearTerm.Term}}</td>
-                    <td>{{o.FirstOption.Title}}</td>
-                    <td>{{o.SecondOption.Title}}</td>
-                    <td>{{o.ThirdOption.Title}}</td>
-                    <td>{{o.FourthOption.Title}}</td>
-                </tr>
-            </tbody>
-         </table>
-        <tt>repeatSelect = {{selectedYearTerm}}</tt><br />
-        {{message1}}
-        {{message2}}
+        <hr/>
+        <div class="row">
+            <h3>{{choices.type}}</h3>
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="o in choices.choiceData">
+                            <td>{{o.ChoiceId}}</td>
+                            <td>{{o.StudentId}}</td>
+                            <td>{{o.StudentFirstName}}</td>
+                            <td>{{o.StudentLastName}}</td>
+                            <td>{{o.YearTerm.Year}}</td>
+                            <td>{{o.YearTerm.Term}}</td>
+                            <td>{{o.FirstOption.Title}}</td>
+                            <td>{{o.SecondOption.Title}}</td>
+                            <td>{{o.ThirdOption.Title}}</td>
+                            <td>{{o.FourthOption.Title}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2 col-md-offset-4">
+                <div id="canvas-holder">
+                    <canvas id="chart-area" width="500" height="500" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
